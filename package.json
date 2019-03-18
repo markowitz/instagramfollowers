@@ -1,0 +1,17 @@
+{
+  "name": "instagramfollowers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node -r esm unscrape.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "g": "^2.0.1",
+    "nodemon": "^1.18.10"
+  }
+}

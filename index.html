@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Influencer Engagement Cost</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+        <div class="main">
+            <img src="/instagram-logo.png" alt="" srcset="" width="150">
+            <h3>CALCULATE YOUR INSTAGRAM VALUE</h3>
+            <div class="form-group">
+                <input type="text" name="username" class="form-control user"> <button class="btn submit" type="submit">Search</button>
+            </div>
+            <div class="comments"></div>
+            <div class="likes"></div>
+            <div class="followersCount"></div>
+            <div class="totalPost"></div>
+            <div class="estimatePrice"></div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            $('.submit').on('click', function(){
+                let username = $('.user').val()
+                $.ajax({
+                    url: "/scrape",
+                    type: 'POST',
+                    data: {username : username}
+                }).then(resp => {
+                    $('.comments').text(resp.comments+' comments')
+                    $('.likes').text(resp.likes+' likes')
+                    $('.followersCount').text(resp.followersCount+' followers');
+                    $('.totalPost').text(resp.totalPosts+' Posts');
+                    $('.estimatePrice').text(calculate(resp.followersCount, resp.likes));
+                })
+
+                function calculate(followersCount, numOfLikes)
+                {
+                    //cost per like 0.0025 (in dollars)
+                    let costForFollowers = followersCount * 0.0025;
+                    let costForLikes = numOfLikes * 0.0025;
+                    let totalCost = costForFollowers + costForLikes;
+
+                    return totalCost;
+                }
+            });
+        </script>
+</body>
+</html>
